@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'cms-header',
@@ -6,5 +6,25 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  // NAVIGATION TOGGLES
+  isUserDropdownOpen: boolean = false;
+  isNavbarCollapsed: boolean = true;
 
+  toggleUserDropdown() {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+  // END NAVIGATION TOGGLES
+
+  // SELECTED TAB FEATURE
+  @Output() selectedFeatureEvent = new EventEmitter<string>();
+
+  onSelected(selectedEvent: string) {
+    this.selectedFeatureEvent.emit(selectedEvent);
+  }
+
+  
 }

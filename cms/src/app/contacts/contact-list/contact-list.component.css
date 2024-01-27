@@ -3,13 +3,3 @@
     font-weight: bold;
 }
 
-.contact-item {
-    border: solid #ddd 1px;
-    border-radius: 5px;
-    margin: 0 10px;
-    padding: 8px;
-}
-
-.contact-image {
-    width: 5rem;
-}

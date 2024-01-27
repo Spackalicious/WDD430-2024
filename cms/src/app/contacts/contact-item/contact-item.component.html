@@ -1,0 +1,10 @@
+<!-- <div *ngFor="let contact of contacts" class="row contact-item"> -->
+    <!-- ^^ moved that into the parent html where this is called. -->
+<a class="row contact-item list-group-item clearfix">
+    <div class="col-xs-8">
+        <h3>{{ contact.name }}</h3>
+    </div>
+    <div class="col-xs-4 text-right">
+        <img [src]="contact.imgUrl" alt="{{ contact.name }}'s' photo" class="contact-image">
+    </div>
+</a>
