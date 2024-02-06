@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Message } from '../message.model';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'cms-message-edit',
@@ -8,7 +9,8 @@ import { Message } from '../message.model';
 })
 export class MessageEditComponent implements OnInit {
   // Create a string variable named currentSender and initialize with value of own name
-  currentSender: string = 'Julie Spackman';
+  // currentSender: string = 'Julie Spackman';
+  currentSender: string = '0';
   
   // CUSTOM EVENTEMITTER TO OUTPUT NEW MESSAGE OBJECT UP TO THE MESSAGELIST COMPONENT
   @Output() addMessageEvent = new EventEmitter<Message>();
@@ -20,7 +22,7 @@ export class MessageEditComponent implements OnInit {
   // @ViewChild('subject', {static: true}) subjectInputRef: ElementRef;
   // @ViewChild('msgText', {static: true}) msgTextInputRef: ElementRef;  
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void { }
 
@@ -32,7 +34,10 @@ export class MessageEditComponent implements OnInit {
     // assign a hardcoded number to the id property of the new Message Object
     const newMessage = new Message('1', subjectValue, msgTextValue, this.currentSender);
     // Call the addMessageEvent emitter's emit() method and pass it the new Message
-    this.addMessageEvent.emit(newMessage);
+    // this.addMessageEvent.emit(newMessage);
+    
+    // new way: call the service to add message!
+    this.messageService.addMessage(newMessage);
   }
 
   onClear() {
