@@ -11,24 +11,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand">WeLearn CMS</a>
+            <a href="" class="navbar-brand">WeLearn CMS</a>
         </div>
 
         <div class="collapse navbar-collapse" [ngClass]="{ 'in': isNavbarCollapsed }">
             <ul class="nav navbar-nav">
-                <li><a href="#" (click)="onSelected('documents')">Documents</a></li>
-                <li><a href="#" (click)="onSelected('messages')">Messages</a></li>
-                <li><a href="#" (click)="onSelected('contacts')">Contacts</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['/documents']">Documents</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['/messages']">Messages</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['/contacts']">Contacts</a></li>
+                <!-- <li><a [routerLink]="documents" (click)="onSelected('documents')">Documents</a></li>
+                <li><a [routerLink]="messages" (click)="onSelected('messages')">Messages</a></li>
+                <li><a [routerLink]="contacts" (click)="onSelected('contacts')">Contacts</a></li> -->
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" [ngClass]="{ open: isUserDropdownOpen }">
-                    <a href="#" (click)="toggleUserDropdown()">User <span class="caret"></span></a>
+                    <a href="" (click)="toggleUserDropdown()">User <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Other</a></li>
+                        <li><a href="">Login</a></li>
+                        <li><a href="">Other</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="">Logout</a></li>
                     </ul>
                 </li>
             </ul>

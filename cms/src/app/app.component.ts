@@ -6,13 +6,19 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  // IMPLEMENT SELECTED FEATURE WITH SWITCHVIEW METHOD
-  selectedFeature: string;
+  // Use ROUTING instead! So much better! 
+  
 
-  switchView(selectedFeature: string) {
-    if (this.selectedFeature?.toUpperCase() !== selectedFeature.toUpperCase()) {
-      this.selectedFeature = selectedFeature;
-    }    
-  }
+
+
+
+  // IMPLEMENT SELECTED FEATURE WITH SWITCHVIEW METHOD
+  // selectedFeature: string;
+
+  // switchView(selectedFeature: string) {
+  //   if (this.selectedFeature?.toUpperCase() !== selectedFeature.toUpperCase()) {
+  //     this.selectedFeature = selectedFeature;
+  //   }    
+  // }
 
 }

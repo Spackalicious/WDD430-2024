@@ -11,6 +11,7 @@ export class MessageEditComponent implements OnInit {
   // Create a string variable named currentSender and initialize with value of own name
   // currentSender: string = 'Julie Spackman';
   currentSender: string = '0';
+  // currentSender: number = 0;
   
   // CUSTOM EVENTEMITTER TO OUTPUT NEW MESSAGE OBJECT UP TO THE MESSAGELIST COMPONENT
   @Output() addMessageEvent = new EventEmitter<Message>();
