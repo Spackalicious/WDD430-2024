@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Contact } from '../contact.model';
+import { ContactService } from '../contact.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 
 @Component({
@@ -7,24 +9,28 @@ import { Contact } from '../contact.model';
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.css'
 })
-export class ContactDetailComponent {
+export class ContactDetailComponent implements OnInit {
+  contact: Contact;
+  id: number;
 
-  @Input() contact: Contact;
+  constructor(private contactService: ContactService, 
+              private route: ActivatedRoute,
+              private router: Router
+  ) { }
 
-  // contact: Contact = new Contact(
-  //   '', 
-  //   '',
-  //   '',
-  //   '',
-  //   ''
-  // );
+  ngOnInit(): void {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.contact = this.contactService.getContact(this.id);
+        }
+      );
+  }
 
-  // contact: Contact = new Contact(
-  //   '1', 
-  //   'R. Kent Jackson',
-  //   'jacksonk@byui.edu',
-  //   '208-496-3771',
-  //   '../../assets/images/jacksonk.jpg'
-  // );
+  onDelete() {
+    this.contactService.deleteContact(this.contact);
+    this.router.navigateByUrl('contacts');
+  }
 
 }

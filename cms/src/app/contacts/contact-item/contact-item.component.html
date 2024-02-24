@@ -1,6 +1,11 @@
 <!-- <div *ngFor="let contact of contacts" class="row contact-item"> -->
     <!-- ^^ moved that into the parent html where this is called. -->
-<a class="row contact-item list-group-item clearfix">
+<a 
+    class="row contact-item list-group-item clearfix"
+    style="cursor: pointer;"
+    [routerLink]="[index]"
+    routerLinkActive="active"
+>
     <div class="col-xs-8">
         <h3>{{ contact.name }}</h3>
     </div>
