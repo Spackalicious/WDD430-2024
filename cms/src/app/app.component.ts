@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   // Use ROUTING instead! So much better! 
-  title: 'cms';
+  // title: 'cms';
 
 
 
