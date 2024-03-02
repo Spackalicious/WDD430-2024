@@ -3,3 +3,7 @@
     font-weight: bold;
 }
 
+.panel-body {
+    height: 80vh;
+    overflow-y: auto;
+}

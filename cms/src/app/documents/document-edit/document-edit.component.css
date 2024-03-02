@@ -1,0 +1,11 @@
+input.ng-invalid {
+    border: 1px solid red;
+  }
+  
+/* .panel {
+  background: yellow;
+} */
+
+.alert {
+  margin: 15px 0 0 0;
+}

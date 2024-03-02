@@ -1,16 +1,9 @@
 <div class="container">
-    <div class="row">
+    <div class="row" cdkDropListGroup>
         <div class="col-md-5">
-            <!-- <h2>contact-list goes here</h2> -->
-            <!-- <cms-contact-list (selectedContactEvent)="selectedContact = $event"></cms-contact-list> -->
             <cms-contact-list></cms-contact-list>
         </div>
-        <div class="col-md-5">
-            <!-- <h2>contact-detail goes here</h2> -->
-            <!-- <cms-contact-detail 
-                *ngIf="selectedContact"
-                [contact]="selectedContact"
-            ></cms-contact-detail> -->
+        <div class="col-md-5 router-outlet">
             <router-outlet></router-outlet>
         </div>
     </div>
