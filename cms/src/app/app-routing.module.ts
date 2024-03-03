@@ -7,7 +7,7 @@ import { DocumentEditComponent } from "./documents/document-edit/document-edit.c
 import { DocumentDetailComponent } from "./documents/document-detail/document-detail.component";
 import { ContactEditComponent } from "./contacts/contact-edit/contact-edit.component";
 import { ContactDetailComponent } from "./contacts/contact-detail/contact-detail.component";
-import { ContactListComponent } from "./contacts/contact-list/contact-list.component";
+// import { ContactListComponent } from "./contacts/contact-list/contact-list.component";
 
 
 const appRoutes: Routes = [

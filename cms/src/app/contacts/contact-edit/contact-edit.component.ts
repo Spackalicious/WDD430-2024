@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
+import { ContactService } from '../contact.service';
+import { Contact } from '../contact.model';
 
 @Component({
   selector: 'cms-contact-edit',
@@ -8,8 +10,11 @@ import { ActivatedRoute, Data } from '@angular/router';
 })
 export class ContactEditComponent implements OnInit {
   newMessage: string;
+  contact: Contact;
 
-  constructor( private route: ActivatedRoute) {  }
+  constructor( private route: ActivatedRoute, 
+                private contactService: ContactService
+  ) {  }
 
   ngOnInit(): void {
     this.route.data.subscribe(
@@ -17,5 +22,15 @@ export class ContactEditComponent implements OnInit {
         this.newMessage = data['message'];
       }
     );
+  }
+
+  addContact() {
+    this.contactService.addContact(this.contact);
+    this.newMessage = "You've successfully {pretended to} add your contact!";
+  }
+
+  updateContact() {
+    this.contactService.addContact(this.contact);
+    this.newMessage = "You've successfully {pretended to} update your contact!";
   }
 }

@@ -13,10 +13,15 @@
         [document]="document"
       ></cms-document-item></a> -->
       <cms-document-item
-        *ngFor="let document of documents, let i = index"
+        *ngFor="let document of documentsList, let i = index"
         [document]="document"
         [index]="i"
       ></cms-document-item>
+      <!-- <cms-document-item
+        *ngFor="let document of documents, let i = index"
+        [document]="document"
+        [index]="i"
+      ></cms-document-item> -->
     </div>
   </div>    
 </div>

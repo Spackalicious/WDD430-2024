@@ -11,7 +11,7 @@
     </div>
     <div class="panel-body">
         <cms-contact-item
-            *ngFor="let contact of contacts, let i = index"
+            *ngFor="let contact of contactsList, let i = index"
             [contact]="contact"
             [index]="i"
         ></cms-contact-item>
