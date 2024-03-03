@@ -12,18 +12,24 @@
         </div>
     </div>
     <div class="panel-body">
-        <h4>Email: {{contact.email}}</h4>
-        <h4>Phone: {{contact.phone}}</h4>
+        <div *ngIf="contact.group == null">
+            <h4>Email: {{contact.email}}</h4>
+            <h4>Phone: {{contact.phone}}</h4>
+        </div>
+        
         <!-- <h4 *ngIf="!contact.group">Email: {{contact.email}}</h4>
         <h4 *ngIf="!contact.group">Phone: {{contact.phone}}</h4> -->
-        <h4 *ngFor="let groupMember of contact.group">
-            <div class="row">
-            <div class="col-sm-2"><img [src]="groupMember.imageUrl" class="contact-image"></div>
-            <div class="col-sm-6 group-info">
-                {{ groupMember.name }}
-            <br>{{ groupMember.email}}
-            <br>{{ groupMember.phone}}</div>
+        <div *ngIf="contact.group != null">
+            <h4 *ngFor="let groupMember of contact.group">
+                <div class="row">
+                <div class="col-sm-2"><img [src]="groupMember.imageUrl" class="contact-image"></div>
+                <div class="col-sm-6 group-info">
+                        {{ groupMember.name }}
+                    <br>{{ groupMember.email}}
+                    <br>{{ groupMember.phone}}</div>
+                </div>
+            </h4>
         </div>
-        </h4>
+        
     </div>
 </div>

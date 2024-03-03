@@ -75,10 +75,10 @@
   
         <div class="row">
           <div class="form-group">
-            <label for="groupList">Group Contacts:</label>
+            <label for="groupList" class="groupListLabel">Group Contacts:</label>
   
-            <div class="row" id="groupList"
-                style="min-height: 3rem;" >
+            <!-- <div class="row" id="groupList"
+                style="min-height: 3rem;" > -->
 
               <!-- <span class="dragMsg" *ngIf="groupContacts?.length < 1">Drag contacts in group here</span> -->
                 <div
@@ -95,6 +95,7 @@
                     </div>
                   </div>
                   <span class="dragMsg" *ngIf="groupContacts?.length < 1">Drag contacts in group here</span>
+                  <!-- <span class="dragMsg">Drag contacts in group here</span> -->
                   <!-- <div *ngIf="editMode" >
                     <div >
                       <cms-contact-item class="col-sm-11" [contact]="contact"></cms-contact-item>
@@ -102,7 +103,7 @@
                     </div>
                   </div> -->
                 </div>
-            </div>
+            <!-- </div> -->
   
           </div>
         </div>

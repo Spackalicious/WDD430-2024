@@ -16,6 +16,7 @@ export class ContactEditComponent implements OnInit {
   groupContacts: Contact[] = [];
   editMode: boolean = false;
   id: string;
+  // isGroup: boolean = false;
 
   constructor( private route: ActivatedRoute, 
                 private router: Router,
@@ -63,8 +64,24 @@ export class ContactEditComponent implements OnInit {
     const contactCopy = { ...event.item.data };
     // if (this.groupContacts.length > 1) {
       this.groupContacts.push(contactCopy);
+      console.log(event);
+      this.onDropSuccess();
+      // this.isGroup = true;
     // }    
     }
+  }
+
+  onDropSuccess() {
+    console.log("Right now, just saying congrats on dropping");
+  }
+
+  addToGroup($event: any) {
+    const selectedContact: Contact = $event.dragData;
+    const invalidGroupContact = this.isInvalidContact(selectedContact);
+    if (invalidGroupContact) {
+      return;
+    }
+    this.groupContacts.push(selectedContact);
   }
 
   onRemoveItem(index: number) {
@@ -72,6 +89,21 @@ export class ContactEditComponent implements OnInit {
       return;
     }
     this.groupContacts.splice(index, 1);
+  }
+
+  isInvalidContact(newContact: Contact) {
+    if(!newContact) {
+      return true;
+    }
+    if (this.contact && newContact.id === this.contact.id) {
+      return true;
+    }
+    for (let i = 0; i < this.groupContacts.length; i++) {
+      if (newContact.id === this.groupContacts[i].id) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
