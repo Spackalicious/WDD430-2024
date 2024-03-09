@@ -1,6 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Injectable, Input } from '@angular/core';
 import { Contact } from '../contact.model';
 
+// MARCH 9 2024
+// @Injectable({
+//   providedIn: 'root'
+// })
+// 
 @Component({
   selector: 'cms-contact-item',
   templateUrl: './contact-item.component.html',

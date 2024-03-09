@@ -11,7 +11,13 @@
     </div>
     <div class="col-xs-4 text-right">
         <!-- <img [src]="contact.imageUrl" alt="{{ contact.name }}'s' photo" class="contact-image"> -->
-        <img *ngIf="!contact.group" [src]="contact.imageUrl" alt="{{ contact.name }}'s' photo" class="contact-image">
-        <img *ngIf="contact.group" src="../../../assets/images/fredFlintstone.png" alt="{{ contact.name }}'s' photo" class="contact-image">
+
+        <!-- this was when I was trying to use groups to determine image -->
+        <!-- <img *ngIf="!contact.group" [src]="contact.imageUrl" alt="{{ contact.name }}'s' photo" class="contact-image">
+        <img *ngIf="contact.group" src="../../../assets/images/fredFlintstone.png" alt="{{ contact.name }}'s' photo" class="contact-image"> -->
+
+        <!-- using lack of image to determine image! -->
+        <img *ngIf="contact.imageUrl" [src]="contact.imageUrl" alt="{{ contact.name }}'s' photo" class="contact-image">
+        <img *ngIf="!contact.imageUrl" src="../../../assets/images/fredFlintstone.png" alt="{{ contact.name }}'s' photo" class="contact-image">
     </div>
 </a>

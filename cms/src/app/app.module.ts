@@ -21,6 +21,8 @@ import { DocumentDetailComponent } from './documents/document-detail/document-de
 import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
+import { ContactService } from './contacts/contact.service';
+import { MessageService } from './messages/message.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { MessageListComponent } from './messages/message-list/message-list.compo
     AppRoutingModule, 
     DragDropModule
   ],
+  // providers: [ContactService, MessageService, ContactDetailComponent, MessageListComponent, ContactListComponent, MessageItemComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

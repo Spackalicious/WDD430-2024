@@ -1,9 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
-
+// MARCH 9 2024
+// @Injectable({
+//   providedIn: 'root'
+// })
+// 
 @Component({
   selector: 'cms-contact-list',
   templateUrl: './contact-list.component.html',
@@ -23,7 +27,8 @@ export class ContactListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.contactsList = this.contactService.getContacts();
+    // this.contactsList = this.contactService.getContacts();
+    this.contactService.getContacts();
     this.subscription = this.contactService.contactListChangedEvent
       .subscribe(
         (contacts: Contact[]) => {

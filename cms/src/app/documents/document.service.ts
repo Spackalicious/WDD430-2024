@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { Document } from './document.model';
 // import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 
-// @Injectable()
 @Injectable({
   providedIn: 'root'
 })
@@ -38,6 +37,7 @@ export class DocumentService {
       this.documents = Object.values(response);
       //   this.maxDocumentId = this.getMaxId();
       this.maxDocumentId = this.getMaxId();
+      console.log("Documents: ");
       console.log(this.documents);
       // sort the list of documents
       this.documents.sort((a, b) => {
@@ -80,7 +80,7 @@ export class DocumentService {
     const docText = JSON.stringify(this.documents);
     const headers = new HttpHeaders() 
       .set('content-type', 'application/json');
-    this.http.put(this.url, docText).subscribe(response => {
+    this.http.put(this.url, docText, { headers }).subscribe(response => {
       this.documentListChangedEvent.next(this.documents.slice());
       console.log("Documents Updated Successfully");
     })
@@ -94,7 +94,7 @@ export class DocumentService {
     }
     // endIf
     console.log('The current MaxID is: ' + this.maxDocumentId);
-    newDocument.id = String(this.maxDocumentId++);
+    newDocument.id = String(++this.maxDocumentId);
     console.log('The new MaxID is: ' + this.maxDocumentId);
     // push newDocument onto the documents list
     this.documents.push(newDocument);
