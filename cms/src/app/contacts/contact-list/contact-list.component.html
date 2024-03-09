@@ -10,16 +10,26 @@
         </div>
     </div>
     <div class="panel-body">
-        <cms-contact-item
-            *ngFor="let contact of contactsList, let i = index"
-            [contact]="contact"
-            [index]="i"
-        ></cms-contact-item>
-        <!-- <cms-contact-item
-            *ngFor="let contact of contacts"
-            [contact]="contact"
-            (click)="onSelected(contact)"
-        ></cms-contact-item> -->
+        <div cdkDropList [cdkDropListData]="contactsList">
+            <!-- <div cdkDrag *ngFor="let contact of contactsList; let i = index" [cdkDragData]="contact"> -->
+            <!-- <div cdkDrag [cdkDragData]="contacts"> -->
+                <!-- <cms-contact-item
+                    [contact]="contact"
+                ></cms-contact-item> -->
+                <!-- <cms-contact-item
+                    *ngFor="let i = index"
+                    [contact]="contact"
+                    [index]="i"
+                ></cms-contact-item> -->
+                <cms-contact-item
+                    cdkDrag
+                    *ngFor="let contact of contactsList; let i = index"
+                    [contact]="contact"
+                    [index]="i"
+                    [cdkDragData]="contact"
+                ></cms-contact-item>
+            <!-- </div> -->
+        </div>
     </div>
 </div>
 
