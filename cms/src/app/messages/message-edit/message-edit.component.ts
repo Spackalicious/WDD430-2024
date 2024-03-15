@@ -1,7 +1,12 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit, Injectable } from '@angular/core';
 import { Message } from '../message.model';
 import { MessageService } from '../message.service';
 
+// MARCH 9 2024
+// @Injectable({
+//   providedIn: 'root'
+// })
+// 
 @Component({
   selector: 'cms-message-edit',
   templateUrl: './message-edit.component.html',
@@ -10,7 +15,9 @@ import { MessageService } from '../message.service';
 export class MessageEditComponent implements OnInit {
   // Create a string variable named currentSender and initialize with value of own name
   // currentSender: string = 'Julie Spackman';
-  currentSender: string = '0';
+  currentSender: string = '18';
+  // currentSender: string = '21'; // trying it out if I change to a different user?? 
+  // currentSender = '20';
   // currentSender: number = 0;
   
   // CUSTOM EVENTEMITTER TO OUTPUT NEW MESSAGE OBJECT UP TO THE MESSAGELIST COMPONENT
@@ -33,7 +40,7 @@ export class MessageEditComponent implements OnInit {
     // Get the value stored in the msgText
     const msgTextValue = this.msgTextInputRef.nativeElement.value;
     // assign a hardcoded number to the id property of the new Message Object
-    const newMessage = new Message('1', subjectValue, msgTextValue, this.currentSender);
+    const newMessage = new Message(null, subjectValue, msgTextValue, this.currentSender);
     // Call the addMessageEvent emitter's emit() method and pass it the new Message
     // this.addMessageEvent.emit(newMessage);
     

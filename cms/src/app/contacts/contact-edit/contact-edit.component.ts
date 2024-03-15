@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { ContactService } from '../contact.service';
 import { Contact } from '../contact.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
+// MARCH 9 2024
+// @Injectable({
+//   providedIn: 'root'
+// })
+// 
 @Component({
   selector: 'cms-contact-edit',
   templateUrl: './contact-edit.component.html',

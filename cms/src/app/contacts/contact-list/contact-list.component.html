@@ -1,14 +1,31 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="row">   
-            <div class="col-xs-8">
-                <h1 class="panel-title text-left">Contacts</h1>
+<div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <span class="title pad-left-right">Contacts</span>
+          </div>
+          <div class="row">
+            <div class="input-group pull-left pad-left-right col-xs-7">
+              <!-- Add the search box input field here -->
+                <input 
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter a search value"
+                    (keyup)="search(searchBox.value)"
+                    #searchBox 
+                  
+                >
+              <div class="glyphicon glyphicon-search input-group-addon" (click)="search(searchBox.value)"></div>
             </div>
-            <div class="col-xs-4">
-                <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
+            <div class="pull-right pad-left-right">
+              <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+    
     <div class="panel-body">
         <div cdkDropList [cdkDropListData]="contactsList">
             <!-- <div cdkDrag *ngFor="let contact of contactsList; let i = index" [cdkDragData]="contact"> -->
@@ -16,14 +33,27 @@
                 <!-- <cms-contact-item
                     [contact]="contact"
                 ></cms-contact-item> -->
+
+                <!-- THIS ONE GIVES ME NORMAL CONTACT LIST. EDITING STILL SWITCHES CONTACT TO A GROUP BC OF OTHER CODE. -->
                 <!-- <cms-contact-item
-                    *ngFor="let i = index"
+                    *ngFor="let contact of contactsList; let i = index"
                     [contact]="contact"
                     [index]="i"
                 ></cms-contact-item> -->
-                <cms-contact-item
+
+                <!-- THIS ONE LETS ME DO THE DRAG AND DROP -->
+                <!-- <cms-contact-item
                     cdkDrag
                     *ngFor="let contact of contactsList; let i = index"
+                    [contact]="contact"
+                    [index]="i"
+                    [cdkDragData]="contact"
+                ></cms-contact-item> -->
+
+                <!-- THIS ONE WORKS WITH SEARCHING AND DRAG AND DROP-->
+                <cms-contact-item
+                    cdkDrag
+                    *ngFor="let contact of contactsList | contactsFilter:searchBox.value; let i = index"
                     [contact]="contact"
                     [index]="i"
                     [cdkDragData]="contact"
