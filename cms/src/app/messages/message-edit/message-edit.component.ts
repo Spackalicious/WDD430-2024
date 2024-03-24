@@ -2,11 +2,6 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit, Injecta
 import { Message } from '../message.model';
 import { MessageService } from '../message.service';
 
-// MARCH 9 2024
-// @Injectable({
-//   providedIn: 'root'
-// })
-// 
 @Component({
   selector: 'cms-message-edit',
   templateUrl: './message-edit.component.html',
@@ -14,11 +9,10 @@ import { MessageService } from '../message.service';
 })
 export class MessageEditComponent implements OnInit {
   // Create a string variable named currentSender and initialize with value of own name
-  // currentSender: string = 'Julie Spackman';
-  currentSender: string = '18';
-  // currentSender: string = '21'; // trying it out if I change to a different user?? 
-  // currentSender = '20';
-  // currentSender: number = 0;
+
+  currentSender: string = '65ffa1874d343666c9bf86d7';
+  // currentSender: string = '101';
+
   
   // CUSTOM EVENTEMITTER TO OUTPUT NEW MESSAGE OBJECT UP TO THE MESSAGELIST COMPONENT
   @Output() addMessageEvent = new EventEmitter<Message>();

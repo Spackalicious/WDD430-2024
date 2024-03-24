@@ -14,6 +14,7 @@ export class DocumentDetailComponent implements OnInit {
   // @Input() document: Document;
   document: Document;
   id: number;
+  // id: string;
   nativeWindow: any;
 
   constructor(private documentService: DocumentService, 
@@ -27,6 +28,8 @@ export class DocumentDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
+          // var id: number = +params['id'];
+          // var id: string = params['id'];
           this.document = this.documentService.getDocument(this.id);
         }
       )

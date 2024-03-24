@@ -7,10 +7,15 @@
  }
  .messageText {
  border-radius: 10px;
- padding: 5px;
+ padding: 5px 5px 5px 0px;
  margin-top: .25rem;
  margin-left: 1rem;
  font-size: 1.5rem;
+ }
+ .messageSubject {
+   font-weight: bold;
+   font-size: 1.5rem;
+   padding: 10px 0 0 5px;
  }
  /* .messageItem {
     border: solid purple;

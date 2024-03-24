@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+.env
+server/unneeded
+
 # Compiled output
 /dist
 /tmp

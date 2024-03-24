@@ -7,9 +7,9 @@ var http = require('http');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// this was not included in the downloaded Wk10 file, but it is in the image for the instructions. Mar 13
-// when building, said MODULE_NOT_FOUND... so taking this out
-// var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var dotenv = require('dotenv');
+dotenv.config();
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
@@ -69,12 +69,17 @@ app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'dist/cms/index.html')); // David Hendricks said this should be changed Mar 13 but is it for this file or server/routes/app.js?
   res.sendFile(path.join(__dirname, 'dist/cms/browser/index.html'));
 });
-// is this supposed to be in here, or is the above? In step 6 of this week's instructions, the image is different than the given code. Adding the img code: 
-// !!!! David Hendricks said in the forum that "images in the instructions showing the render function are either deprecated or red herrings"
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//     res.render("index");
-// });
+
+
+// Add the following lines of code below the routing files code in the server.js file:
+// establish a connection to the mongo database
+mongoose.connect(process.env.MONGODB_URI)
+.then(() =>
+  console.log('Connected to database!')
+)
+.catch(err =>
+  console.log('Connection failed:', err)
+);
 
 // Define the port address and tell express to use this port
 const port = process.env.PORT || '3000';

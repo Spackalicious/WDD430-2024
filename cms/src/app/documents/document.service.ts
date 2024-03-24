@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Document } from './document.model';
-// import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 
 @Injectable({
   providedIn: 'root'
@@ -14,126 +14,132 @@ export class DocumentService {
 
   private documents: Document[] = [];
   private maxDocumentId: number = 0;  
-  // private error = null;
-  url = 'https://wdd430-opendb-default-rtdb.firebaseio.com/documents.json';
+  url = 'http://localhost:3000/documents';
 
-  constructor(private http: HttpClient) {
-    // this.documents = MOCKDOCUMENTS;
-    this.maxDocumentId = this.getMaxId();    
+  constructor(private http: HttpClient,
+    // private router: Router    
+    ) {
+    // this.maxDocumentId = this.getMaxId();    
    }
 
    ngOnInit() {
     this.getDocuments();
    }
 
-   getDocuments() {
-    // return this.documents.slice();      
-    return this.http.get<Document[]>(this.url)
-    .subscribe // this subscribe is unhappy because I'm passing a 2nd argument, the error, as instructed.
-      // success method 
-      (response => {
-      // (documents: Document[] ) => {
-      //   this.documents = documents;
-      this.documents = Object.values(response);
-      //   this.maxDocumentId = this.getMaxId();
-      this.maxDocumentId = this.getMaxId();
-      console.log("Documents: ");
-      console.log(this.documents);
-      // sort the list of documents
-      this.documents.sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        // names must be equal
-        return 0;
-      });
-
-      // emit the next document list change event.
-      this.documentListChangedEvent.next(this.documents.slice());
-      // error method
-    }, error => {
-      // this.error = error.message;
-      // console.log(error);
-      console.log(error.message);
-    })    
+  getDocuments(): void {
+    this.http.get(this.url)
+    .subscribe({
+      next: (documentData: {message: string, documents: Document[]}) => {    
+          this.documents = documentData.documents;
+          this.sortAndSend(this.documents);
+         
+          let documentListClone: Document[] = this.documents.slice();
+          this.documentListChangedEvent.next(documentListClone);
+      },
+      error: (error) => {
+        console.log('getDocuments error '+error)
+      }
+    });
   }
+
 
   getDocument(index: number): Document {
+  // getDocument(id: string): Document {
     return this.documents[index];
+    // return this.documents.find((d) => d.id === id);
+    // Mar 23 - not worrying about calling by id, just sticking with index, because this project is already taking too long.
   }
 
-  getMaxId(): number {
-    let maxId = 0;
-    this.documents.forEach((d) => {
-      if (+d.id > maxId) maxId = +d.id;
-    });
-    console.log('New Documents simpler retrieval method MaxId is ' + maxId);
-    return maxId;
+//   getMaxId(): number {
+//     let maxId = 0;
+//     this.documents.forEach((d) => {
+//       if (+d.id > maxId) maxId = +d.id;
+//     });
+//     console.log('New Documents MaxId is ' + maxId);
+//     return maxId;
+// }
+
+sortAndSend(thing: any) {
+  thing.sort((a, b) => {
+    const nameA = a.name.toUpperCase(); 
+    const nameB = b.name.toUpperCase(); 
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }      
+    return 0;
+  });
 }
 
-  storeDocuments() {
-    const docText = JSON.stringify(this.documents);
-    const headers = new HttpHeaders() 
-      .set('content-type', 'application/json');
-    this.http.put(this.url, docText, { headers }).subscribe(response => {
-      this.documentListChangedEvent.next(this.documents.slice());
-      console.log("Documents Updated Successfully");
-    })
-  }
+  // storeDocuments() {
+  //   const docText = JSON.stringify(this.documents);
+  //   const headers = new HttpHeaders() 
+  //     .set('content-type', 'application/json');
+  //   this.http.put(this.url, docText, { headers }).subscribe(response => {
+  //     this.documentListChangedEvent.next(this.documents.slice());
+  //     console.log("Documents Updated Successfully");
+  //   })
+  // }
 
   addDocument(newDocument: Document) {
-    // if newDocument is undefined or null then
     if (!newDocument) {
-    // return
       return;
     }
-    // endIf
-    console.log('The current MaxID is: ' + this.maxDocumentId);
-    newDocument.id = String(++this.maxDocumentId);
-    console.log('The new MaxID is: ' + this.maxDocumentId);
-    // push newDocument onto the documents list
-    this.documents.push(newDocument);
-    // const documentsListClone = this.documents.slice();
-    // this.documentListChangedEvent.next(documentsListClone);
-
-    // replacing documentListchangedEvent with storeDocuments()
-    // this.documentListChangedEvent.next(this.documents.slice());
-    this.storeDocuments();
+    newDocument.id = '';
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ 
+      message: string, 
+      document: Document 
+    }>(this.url, newDocument,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+            // add new document to documents
+        // this.sortAndSend(this.documents); **I'm already sorting when I retrieve documents.
+        this.documents.push(responseData.document);
+      }
+    );
+    location.assign('http://localhost:4200/documents'); // immediately add new document - bit of a hack.
+      // this.router.navigate(['documents']); //doesn't reload with the new document.
+    // the old way to add new documents: 
+    // this.documents.push(newDocument);
+    // this.storeDocuments();
   }
   
   updateDocument(originalDocument: Document, newDocument: Document) {
-    // if originalDocument or newDocument is undefined or null then
     if (!originalDocument || !newDocument) {
-      // return
       return;
-    } // endIf
-
-    // pos = documents.indexOf(originalDocument)
-    const pos = this.documents.indexOf(originalDocument);
-    // if pos < 0 then
+    } 
+    const pos = this.documents.findIndex(d => d.id === originalDocument.id);
+    // console.log("The POS is: " + pos);
+    // console.log(originalDocument.id);
+    // const pos = this.documents.indexOf(originalDocument);
     if ( pos < 0 ) {
-      // return
       return;
-    } // endIf
-    // newDocument.id = originalDocument.id
-    // newDocument.id = String(originalDocument.id);
+    } 
     newDocument.id = originalDocument.id;
-    // documents[pos] = newDocument
-    this.documents[pos] = newDocument;
-    // documentsListClone = documents.slice()
-    // const documentsListClone = this.documents.slice();
-    // documentListChangedEvent.next(documentsListClone)
-    // this.documentListChangedEvent.next(documentsListClone);
+    // newDocument._id = originalDocument._id;
+    // this.documents[pos] = newDocument;
 
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // update database
+    // console.log(this.url + "/" + originalDocument.id);
+    this.http.put(this.url  + "/" + originalDocument.id,
+      newDocument, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.documents[pos] = newDocument;
+          // this.sortAndSend(); //don't need this here - I sort and send on get.
+        }
+      );
+      // location.assign('http://localhost:4200/documents'); 
+      location.assign('http://localhost:4200/documents'); // immediately display the updated document - bit of a hack.
 
-    // replacing documentListchangedEvent with storeDocuments()
-    // this.documentListChangedEvent.next(this.documents.slice());
-    this.storeDocuments();
+    // replacing documentListchangedEvent with storeDocuments() **OLD METHOD
+    // this.storeDocuments();
   }
 
   deleteDocument(document: Document) {
@@ -141,16 +147,23 @@ export class DocumentService {
        return;
     }
     const pos = this.documents.indexOf(document);
+    console.log("the POS to be deleted is: " + pos);
     if (pos < 0) {
        return;
     }
-    this.documents.splice(pos, 1);
-    // Does it matter if we use the variable? Using documentsListClone just in case it matters later. 
-    // const documentsListClone = this.documents.slice();
+    // this.documents.splice(pos, 1);
+    this.http.delete(this.url + "/" + document.id)
+      .subscribe(
+        (response: Response) => {
+          this.documents.splice(pos, 1);
+          // this.sortAndSend();
+        }
+      );
 
+      // location.assign('http://localhost:4200/documents'); 
+      location.assign('http://localhost:4200/documents'); // immediately display the updated document - bit of a hack
 
-    // replacing documentListchangedEvent with storeDocuments()
-    // this.documentListChangedEvent.next(this.documents.slice());
-    this.storeDocuments();
+    // unused at week 11, but too bad because this felt cleaner! maybe later reconfigure to use an array that then gets saved.
+    // this.storeDocuments();
   }
 }

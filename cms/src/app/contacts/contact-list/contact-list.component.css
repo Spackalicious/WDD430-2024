@@ -7,3 +7,14 @@
     height: 80vh;
     overflow-y: auto;
 }
+
+.search-box-title {
+    font-weight: bold;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.search-box {
+    padding: 10px;
+    /* border: solid purple; */
+}
